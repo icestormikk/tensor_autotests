@@ -23,11 +23,3 @@ class SbisPage(BasePage):
     @property
     def tensor_image(self):
         return self.find(tensor_image_selector)
-
-    def click_contacts(self):
-        contacts_link = self.header_contacts_link
-        ActionChains(self.browser).click(contacts_link).perform()
-
-    def click_on_tensor_image(self):
-        image = self.tensor_image
-        ActionChains(self.browser).click(image).perform()
