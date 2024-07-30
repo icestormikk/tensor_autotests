@@ -33,4 +33,4 @@ class TensorAboutPage(BasePage):
 
     @property
     def we_are_working_images(self) -> list[WebElement]:
-        return self.find_many(*we_are_working_images_selector)
+        return self.find_many(we_are_working_images_selector)

@@ -8,6 +8,7 @@ tensor_image_selector = (By.XPATH, '//*[@id="contacts_clients"]/div[1]/div/div/d
 
 SBIS_PAGE_URL = "https://sbis.ru/"
 
+
 class SbisPage(BasePage):
     def __init__(self, browser):
         super().__init__(browser)
@@ -17,11 +18,11 @@ class SbisPage(BasePage):
 
     @property
     def header_contacts_link(self):
-        return self.find(*contacts_button_selector)
+        return self.find(contacts_button_selector)
 
     @property
     def tensor_image(self):
-        return self.find(*tensor_image_selector)
+        return self.find(tensor_image_selector)
 
     def click_contacts(self):
         contacts_link = self.header_contacts_link

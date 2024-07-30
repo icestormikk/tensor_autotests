@@ -20,11 +20,11 @@ class TensorPage(BasePage):
 
     @property
     def power_in_people_text(self):
-        return self.find(*power_in_people_text_selector)
+        return self.find(power_in_people_text_selector)
 
     @property
     def power_in_people_more_button(self):
-        return self.find(*power_in_people_more_button_selector)
+        return self.find(power_in_people_more_button_selector)
 
     def click_on_power_in_people_more_button(self):
         button = self.power_in_people_more_button
