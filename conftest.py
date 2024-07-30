@@ -26,11 +26,14 @@ def initialized_browser():
 
 
 def setup_logger():
+    """
+    Стандартные настройки логгера
+    """
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
-            logging.FileHandler("test_log.log", mode='w'),
+            logging.FileHandler("tensor_autotests_log.log", mode='w'),
             logging.StreamHandler()
         ],
         force=True
@@ -39,5 +42,8 @@ def setup_logger():
 
 @fixture(scope='session')
 def logger():
+    """
+    Проинициалированный логгер, который можно использовать в функциях программы
+    """
     setup_logger()
-    return logging.getLogger("Tensor-autotests logger")
+    return logging.getLogger("Tensor-Autotests-Logger")
