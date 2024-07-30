@@ -1,3 +1,4 @@
+import logging
 import os
 
 from pytest import fixture
@@ -22,3 +23,21 @@ def initialized_browser():
     browser.implicitly_wait(10)
     yield browser
     browser.close()
+
+
+def setup_logger():
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler("test_log.log", mode='w'),
+            logging.StreamHandler()
+        ],
+        force=True
+    )
+
+
+@fixture(scope='session')
+def logger():
+    setup_logger()
+    return logging.getLogger("Tensor-autotests logger")

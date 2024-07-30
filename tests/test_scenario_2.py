@@ -1,7 +1,8 @@
 from pytest import mark
 from selenium.webdriver.support import expected_conditions
 
-from pages.sbis_contacts_page import SbisContactsPage, region_chooser_text_selector, YAR_OBL_LABEL, KAMCHATKA_KRAI_LABEL
+from pages.sbis_contacts_page import SbisContactsPage, region_chooser_text_selector, YAR_OBL_LABEL, \
+    KAMCHATKA_KRAI_LABEL, SBIS_CONTACTS_PAGE_URL
 
 
 def partners_verify(page: SbisContactsPage):
@@ -72,17 +73,22 @@ def region_choose_dialog_verify(page: SbisContactsPage):
 
 
 @mark.scenario_2
-def test_scenario_2(initialized_browser):
+def test_scenario_2(initialized_browser, logger):
     """
     Второй тестовый сценарий
     :param initialized_browser: Настроенный нужным образом браузер
     :return: None
     """
+    logger.info(f"Открываем страницу {SBIS_CONTACTS_PAGE_URL}")
     sbis_contacts_page = SbisContactsPage(initialized_browser)
     sbis_contacts_page.open()
 
+    logger.info(f"Проверяем, соответствует ли нашего текущее местоположение ({YAR_OBL_LABEL}) указанному в поле")
     region_chooser_real_region_verify(sbis_contacts_page)
+    logger.info("Проверяем список партнёров")
     partners_verify(sbis_contacts_page)
 
+    logger.info("Проверяем, открывается ли модальное окно со списком всех регионов")
     region_chooser_is_exists(sbis_contacts_page)
+    logger.info("Проверяем функционал смены региона")
     region_choose_dialog_verify(sbis_contacts_page)

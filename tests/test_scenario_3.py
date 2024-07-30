@@ -1,12 +1,13 @@
 import os
 import time
+from logging import Logger
 
 from pytest import mark
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions
 
 from pages.sbis_contacts_page import SbisContactsPage, SBIS_CONTACTS_PAGE_URL
-from pages.sbis_download_page import SbisDownloadPage, PLUGIN_FILESIZE_IN_MB
+from pages.sbis_download_page import SbisDownloadPage, PLUGIN_FILESIZE_IN_MB, SBIS_DOWNLOAD_PAGE_URL
 
 
 def verify_sbis_installer_file(filename: str):
@@ -54,7 +55,7 @@ def click_on_footer_link(page: SbisContactsPage):
     page.wait_until(expected_conditions.url_changes(SBIS_CONTACTS_PAGE_URL))
 
 
-def click_on_download_variant(page: SbisDownloadPage):
+def click_on_download_variant(page: SbisDownloadPage, logger: Logger):
     """
     Поиск ссылки на скачивание нужного веб-установщика и скачивание плагина
     :param page: Страница "Загрузки" сайта Сбис
@@ -71,25 +72,32 @@ def click_on_download_variant(page: SbisDownloadPage):
     # нажимаем на ссылку по готовности
     windows_item_download.click()
 
+    logger.debug("Ожидаем начало скачивания файла (2с)")
     # ждём, когда начнётся процесс скачивания файла
     time.sleep(2)
+    logger.debug("Ожидаем завершение скачивания (40с)")
     # ожидание завершения процесса скачивания файла
     wait_while_file_download(timeout_in_sec=40)
 
 
 @mark.scenario_3
-def test_scenario_3(initialized_browser):
+def test_scenario_3(initialized_browser, logger):
     """
     Третий тестовый сценарий
     :param initialized_browser: Настроенный нужным образом браузер
     :return: None
     """
+    logger.info(f"Открываем страницу {SBIS_CONTACTS_PAGE_URL}")
     sbis_contacts_page = SbisContactsPage(initialized_browser)
     sbis_contacts_page.open()
 
+    logger.info("Переходим в \"подвал\" страницы и находим нужную ссылку")
     click_on_footer_link(sbis_contacts_page)
 
+    logger.info(f"Открываем страницу {SBIS_DOWNLOAD_PAGE_URL}")
     sbis_download_page = SbisDownloadPage(initialized_browser)
-    click_on_download_variant(sbis_download_page)
+    logger.info("Выбираем вариант с веб-установщиком для Windows и нажимаем на него")
+    click_on_download_variant(sbis_download_page, logger)
 
+    logger.info("Проверяем размера скачанного файла..")
     verify_sbis_installer_file("sbisplugin-setup-web.exe")
