@@ -5,16 +5,31 @@ from pages.sbis_contacts_page import SbisContactsPage, region_chooser_text_selec
 
 
 def partners_verify(page: SbisContactsPage):
+    """
+    Валидация списка партнёров (проверка на наличие списка и его не пустоту)
+    :param page: Страница "Контакты" сайта Сбис
+    :return: None
+    """
     assert page.partners_list is not None
     assert len(page.partners) > 0
 
 
 def region_chooser_real_region_verify(page: SbisContactsPage):
+    """
+    Валидация текста на кнопке выбора региона (соответствие реальному местоположению)
+    :param page: Страница "Контакты" сайта Сбис
+    :return: None
+    """
     region_chooser_text = page.region_chooser_text
     assert region_chooser_text == YAR_OBL_LABEL
 
 
 def region_chooser_is_exists(page: SbisContactsPage):
+    """
+    Проверка вызова модального окна при нажатии на кнопку смены региона
+    :param page: Страница "Контакты" сайта Сбис
+    :return: None
+    """
     # находим кнопку для смены региона
     region_chooser = page.region_chooser
     # ждём, когда она станет кликабельной
@@ -29,6 +44,11 @@ def region_chooser_is_exists(page: SbisContactsPage):
 
 
 def region_choose_dialog_verify(page: SbisContactsPage):
+    """
+    Проверка корректности работы механизма по смене региона
+    :param page: Страница "Контакты" сайта Сбис
+    :return: None
+    """
     # ждём появляения поисковой строки в модальном окне, что будет означать, что окно полностью загрузилось
     page.wait_until(expected_conditions.visibility_of(page.region_chooser_dialog_searchbar))
 
@@ -53,6 +73,11 @@ def region_choose_dialog_verify(page: SbisContactsPage):
 
 @mark.scenario_2
 def test_sbis_contacts_page(initialized_browser):
+    """
+    Второй тестовый сценарий
+    :param initialized_browser: Настроенный нужным образом браузер
+    :return: None
+    """
     sbis_contacts_page = SbisContactsPage(initialized_browser)
     sbis_contacts_page.open()
 
