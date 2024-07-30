@@ -78,7 +78,7 @@ def click_on_download_variant(page: SbisDownloadPage):
 
 
 @mark.scenario_3
-def test_sbis_download_versions(initialized_browser):
+def test_scenario_3(initialized_browser):
     """
     Третий тестовый сценарий
     :param initialized_browser: Настроенный нужным образом браузер

@@ -1,4 +1,3 @@
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
@@ -10,6 +9,9 @@ SBIS_PAGE_URL = "https://sbis.ru/"
 
 
 class SbisPage(BasePage):
+    """
+    Главная страница сайта Сбис
+    """
     def __init__(self, browser):
         super().__init__(browser)
 

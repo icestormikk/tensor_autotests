@@ -7,24 +7,14 @@ from pages.base_page import BasePage
 TENSOR_ABOUT_PAGE_URL = "https://tensor.ru/about"
 
 we_are_working_images_selector = (By.CSS_SELECTOR, '.tensor_ru-About__block3-image')
-
-
-def is_images_have_same_size(images: list[WebElement]) -> bool:
-    if not images:
-        return True
-
-    width = images[0].size.get('width')
-    height = images[0].size.get('height')
-
-    for image in images:
-        sizes_dict = image.size
-        if sizes_dict.get('width') != width or sizes_dict.get('height') != height:
-            return False
-
-    return True
+we_are_working_images_container_selector = (By.CLASS_NAME, 'tensor_ru-About__block3')
 
 
 class TensorAboutPage(BasePage):
+    """
+    Страница "О нас" сайта Тензор
+    """
+
     def __init__(self, browser: WebDriver):
         super().__init__(browser)
 
@@ -34,3 +24,7 @@ class TensorAboutPage(BasePage):
     @property
     def we_are_working_images(self) -> list[WebElement]:
         return self.find_many(we_are_working_images_selector)
+
+    @property
+    def we_are_working_images_container(self):
+        return self.find(we_are_working_images_container_selector)

@@ -72,7 +72,7 @@ def region_choose_dialog_verify(page: SbisContactsPage):
 
 
 @mark.scenario_2
-def test_sbis_contacts_page(initialized_browser):
+def test_scenario_2(initialized_browser):
     """
     Второй тестовый сценарий
     :param initialized_browser: Настроенный нужным образом браузер

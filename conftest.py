@@ -6,6 +6,10 @@ from selenium import webdriver
 
 @fixture(scope='session')
 def initialized_browser():
+    """
+    Фикстура с настройка браузера для проведения теста
+    :return:
+    """
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_experimental_option("prefs", {
         "download.default_directory": f"{os.getcwd()}",

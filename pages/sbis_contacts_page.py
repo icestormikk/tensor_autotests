@@ -35,6 +35,10 @@ download_local_versions_link_selector = (
 
 
 class SbisContactsPage(BasePage):
+    """
+    Страница "Контакты" сайта Сбис
+    """
+
     def __init__(self, browser: WebDriver):
         super().__init__(browser)
 

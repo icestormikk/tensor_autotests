@@ -17,6 +17,10 @@ items_download_selector = (
 
 
 class SbisDownloadPage(BasePage):
+    """
+    Страница "Загрузки" сайта Сбис
+    """
+
     def __init__(self, browser: WebDriver):
         super().__init__(browser)
 
